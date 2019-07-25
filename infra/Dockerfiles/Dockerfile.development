@@ -1,4 +1,18 @@
 # build environment
-FROM node:8.16.0-alpine
-RUN npm i -g create-react-app
-WORKDIR my-react
+FROM node:8.16.0-alpine as build
+COPY ./infra/dumb-init /infra/dumb-init
+COPY ./my-app /my-app
+RUN npm i -g create-react-app && \
+    cd my-app && \
+    npm run build
+
+WORKDIR my-app
+
+# production environment
+FROM nginx:1.16.0-alpine
+COPY --from=build /my-app/build /usr/share/nginx/html
+COPY --from=build /infra/dumb-init /infra/dumb-init
+
+EXPOSE 80
+ENTRYPOINT ["/infra/dumb-init", "--"]
+CMD ["nginx", "-g", "daemon off;"]

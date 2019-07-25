@@ -1,8 +1,8 @@
 # build environment
 FROM node:8.16.0-alpine as build
 COPY ./infra/dumb-init /infra/dumb-init
+COPY ./my-app /my-app
 RUN npm i -g create-react-app && \
-    create-react-app my-app && \
     cd my-app && \
     npm run build
 

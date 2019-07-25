@@ -19,5 +19,4 @@ finish() {
 trap "finish" INT TERM
 
 # TODO: refactor the code of building Docker image and creating app
-docker build -t react-pan-dev:0.0.0 -f infra/Dockerfiles/Dockerfile.creation . &&
-docker run -d -v $(pwd):/my-react react-pan-dev:0.0.0 sh -c 'create-react-app my-app'
+ docker run -d --rm --name koa-creation -v $(pwd)/my-koa:/my-koa --workdir /my-koa node:8.16.0-alpine sh -c 'npm init -y && touch app.js'
