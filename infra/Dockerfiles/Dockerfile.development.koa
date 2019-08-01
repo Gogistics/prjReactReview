@@ -3,7 +3,12 @@ FROM node:8.16.0-alpine as build
 COPY ./infra/dumb-init /infra/dumb-init
 COPY ./my-koa /my-koa
 RUN cd /my-koa && \
-    npm i --save koa koa-router
+    npm i --save koa \
+        koa-router \
+        mongodb \
+        ioredis \
+        koa-generic-session \
+        koa-redis
 
 WORKDIR my-koa
 

@@ -1,0 +1,32 @@
+# Environment Variables
+# Description:
+#   This file contains all environment variables that will be used to set up the whole system
+
+ERR_OPERATOR=1
+DOCKER_REGISTRY_ACCOUNT="docker.com"
+DOCKER_REGISTRY_USER_NAME="alantai"
+DOCKER_REGISTRY_PWD="!lct19811014"
+DOCKER_REGISTRY_IMG_DIR="atai"
+
+DOCKER_NETWORK_REACT_APPS="react_apps_network"
+DOCKER_NETWORK_REACT_APPS_DRIVER="bridge"
+DOCKER_NETWORK_REACT_APPS_SUBNET="179.99.0.0/16"
+DOCKER_NETWORK_REACT_APPS_GATEWAY="179.99.0.1"
+
+# Mongo
+MONGO_IP=179.99.0.5
+MONGO_PORT=27017
+MONGO_REACT_PAN_DB=react_pan
+MONGO_REACT_PAN_COLLECTION_LOGS=logs
+
+MONGO_ADMIN_USER="pan_admin"
+MONGO_ADMIN_PASSWORD="pan_admin_123"
+MONGO_TEST_USER="pan_test_user"
+MONGO_TEST_PASSWORD="pan_test_user_123"
+# \Mongo
+
+# Redis
+REDIS_IP=179.99.0.6
+REDIS_PORT=6379
+REDIS_DB=0
+# \Redis

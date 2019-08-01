@@ -1,8 +1,14 @@
 # build environment
 FROM node:8.16.0-alpine as build
 COPY ./infra/dumb-init /infra/dumb-init
+COPY ./infra/conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./my-app /my-app
+
+# install create-react-app
 RUN npm i -g create-react-app && \
+    npm i --save react-router-dom \
+        react-bootstrap \
+        bootstrap && \
     cd my-app && \
     npm run build
 
@@ -10,7 +16,13 @@ WORKDIR my-app
 
 # production environment
 FROM nginx:1.16.0-alpine
+
+# copy frontend files to html dir
 COPY --from=build /my-app/build /usr/share/nginx/html
+
+# replace default routing with custom one
+RUN rm /etc/nginx/conf.d/default.conf
+COPY --from=build /etc/nginx/nginx.conf /etc/nginx/conf.d
 COPY --from=build /infra/dumb-init /infra/dumb-init
 
 EXPOSE 80
