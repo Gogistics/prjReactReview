@@ -15,6 +15,10 @@ import {
 
 // custom
 import Button from 'components/Button';
+import {
+  debounce,
+  throttle
+} from 'utils/Performance';
 
 // router
 import {
@@ -25,21 +29,19 @@ import {
 
 
 function App() {
+  // text input
+  let textInput = React.createRef();
 
-  fetch('http://localhost/apis')
-    .then(res => res.json())
-    .then((result) => {
-      console.log(result);
-    });
+  function handleOnChange(refName, e) {
+    console.log(textInput.current.value);
 
-  function keyUpHandler(refName, e) {
-    console.log(refName);
-    // prints either LoginInput or PwdInput
+    // ajax
+    fetch('http://localhost/apis/' + textInput.current.value)
+      .then(res => res.json())
+      .then((result) => {
+        console.log(result);
+      });
   };
-
-  function debounce() {
-    //
-  }
 
   return (
     <Router>
@@ -53,7 +55,7 @@ function App() {
               <Nav.Link><Link to="/topics">Topics</Link></Nav.Link>
             </Nav>
             <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" onKeyUp={keyUpHandler}/>
+              <FormControl type="text" placeholder="Search" className="mr-sm-2" ref={textInput} onChange={debounce(handleOnChange, 300)}/>
             </Form>
           </Navbar.Collapse>
         </Navbar>

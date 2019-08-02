@@ -5,6 +5,7 @@ COPY ./my-koa /my-koa
 RUN cd /my-koa && \
     npm i --save koa \
         koa-router \
+        koa-sse-stream \
         mongodb \
         ioredis \
         koa-generic-session \

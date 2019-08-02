@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const app = new Koa();
+
+// router
 const router = new Router();
 
 // mongo setup
@@ -25,13 +27,17 @@ redis.get("foo", function(err, result) {
 const session = require('koa-generic-session');
 const redisStore = require('koa-redis');
 
+// sse
+const sse = require('koa-sse-stream');
+
 router
   .get('/', (ctx, next) => {
     // won't be hit coz only requests prefixed with /apis are proxyed to the apis app
     ctx.body = 'Hello Default...';
   })
-  .get('/apis/', (ctx, next) => {
-    ctx.body = {status: 1, msg: 'resp from koa'};
+  .get('/apis/:query', (ctx, next) => {
+    console.log(ctx.params);
+    ctx.body = {status: 1, msg: 'resp from koa', query: ctx.params.query};
   });
 
 app.use(session({
