@@ -21,7 +21,7 @@ finish() {
 trap "finish" INT TERM
 
 # login registry
-docker login -u $DOCKER_REGISTRY_USER_NAME -p $DOCKER_REGISTRY_PWD $DOCKER_REGISTRY_ACCOUNT
+# docker login -u $DOCKER_REGISTRY_USER_NAME -p $DOCKER_REGISTRY_PWD $DOCKER_REGISTRY_ACCOUNT
 
 set +e
 # build Docker images and
@@ -61,4 +61,4 @@ docker run -d --name react_pan_system_redis \
 
 set -e
 
-docker logout $DOCKER_REGISTRY_ACCOUNT
+# docker logout $DOCKER_REGISTRY_ACCOUNT

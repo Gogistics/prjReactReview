@@ -3,9 +3,10 @@ function debounce(cb, timeout) {
 
     return function(...args) {
         clearTimeout(timerId);
-        timerId = setTimeout(() => {
+        timerId = setTimeout( function() {
+            console.log('triggered...');
             cb.apply(this, args);
-        }, timeout);
+        }.bind(this), timeout);
     }
 }
 

@@ -16,9 +16,20 @@ import {
 // custom
 import Button from 'components/Button';
 import {
+    Home,
+    About,
+    LoginForm,
+    Topics,
+    Topic
+} from 'components/Content';
+
+import {
   debounce,
   throttle
 } from 'utils/Performance';
+import {
+  promisify
+} from 'utils/Concurrency';
 
 // router
 import {
@@ -28,23 +39,33 @@ import {
 } from "react-router-dom";
 
 
-function App() {
-  // text input
-  let textInput = React.createRef();
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+    // text input
+    this.textInput = React.createRef();
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
 
-  function handleOnChange(refName, e) {
-    console.log(textInput.current.value);
+  handleOnChange(evt) {
+    console.log(evt);
+    console.log(this.textInput.current.value);
 
     // ajax
-    fetch('http://localhost/apis/' + textInput.current.value)
-      .then(res => res.json())
-      .then((result) => {
-        console.log(result);
-      });
+    if (typeof this.textInput.current.value == 'string' &&
+        this.textInput.current.value.length > 0) {
+      fetch('http://localhost/apis/' + this.textInput.current.value)
+        .then(res => res.json())
+        .then((result) => {
+          console.log(result);
+        });
+    }
   };
 
-  return (
-    <Router>
+  render() {
+    return (
+      <Router>
         <Navbar bg="light">
           <Navbar.Brand>React App</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -52,77 +73,34 @@ function App() {
             <Nav className="mr-auto">
               <Nav.Link><Link to="/">Home</Link></Nav.Link>
               <Nav.Link><Link to="/about">About</Link></Nav.Link>
+              <Nav.Link><Link to="/login">Login</Link></Nav.Link>
               <Nav.Link><Link to="/topics">Topics</Link></Nav.Link>
             </Nav>
             <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" ref={textInput} onChange={debounce(handleOnChange, 300)}/>
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+                ref={this.textInput}
+                onChange={debounce(this.handleOnChange, 600)}
+              />
             </Form>
           </Navbar.Collapse>
         </Navbar>
 
-      <Container>
-        <Row>
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/topics" component={Topics} />
-        </Row>
-      </Container>
-    </Router>
-  );
-}
-
-// children components for router
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Topics({ match }) {
-  // check match
-  console.warn(match);
-
-  return (
-    <div>
-      <h2>Topics</h2>
-      <ul>
-        <li>
-          <Link to={`${match.url}/rendering`}>Rendering with React</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-        </li>
-      </ul>
-
-      <Route path={`${match.path}/:topicId`} component={Topic} />
-      <Route
-        exact
-        path={match.path}
-        render={() => <h3>Please select a topic.</h3>}
-      />
-    </div>
-  );
-}
-
-function Topic({ match }) {
-  return (
-    <div>
-      <h3>{match.params.topicId}</h3>
-    </div>
-  );
+        <Container>
+          <Row>
+            <Col>
+              <Route exact path="/" component={Home} />
+              <Route path="/about" component={About} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/topics" component={Topics} />
+            </Col>
+          </Row>
+        </Container>
+      </Router>
+    )
+  }
 }
 
 export default App;
