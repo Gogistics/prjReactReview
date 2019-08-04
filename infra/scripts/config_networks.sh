@@ -4,7 +4,7 @@
 # Program:
 #   Configure networks for the control system and the subsystems
 # Date:
-#   7/13/2019
+#   08/02/2019
 
 set -e
 

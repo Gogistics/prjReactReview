@@ -4,7 +4,7 @@
 # Program:
 #   Spin up all databases
 # Date:
-#   7/13/2019
+#   08/02/2019
 
 set -e
 

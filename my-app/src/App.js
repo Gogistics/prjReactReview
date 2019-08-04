@@ -49,9 +49,6 @@ class App extends React.Component {
   }
 
   handleOnChange(evt) {
-    console.log(evt);
-    console.log(this.textInput.current.value);
-
     // ajax
     if (typeof this.textInput.current.value == 'string' &&
         this.textInput.current.value.length > 0) {

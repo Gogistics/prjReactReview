@@ -15,12 +15,15 @@ https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_origi
 
 5. use strict
 
-5. ES6
+6. event.preventDefault => it stops the browsers default behaviour
+   event.stopPropagation => it prevents the event from propagating the DOM (bubbling up)
 
-6. debounce, throttle
+7. ES6
+
+8. debounce, throttle
 https://programmingwithmosh.com/javascript/javascript-throttle-and-debounce-patterns/
 https://www.peterbe.com/plog/how-to-throttle-and-debounce-an-autocomplete-input-in-react
 
-7. state management
+9. state management
 
-8. generator (optional)
+10. generator (optional)

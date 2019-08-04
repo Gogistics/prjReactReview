@@ -6,10 +6,10 @@ COPY ./my-app /my-app
 
 # install create-react-app
 RUN npm i -g create-react-app && \
+    cd my-app && npm i && \
     npm i --save react-router-dom \
         react-bootstrap \
         bootstrap && \
-    cd my-app && \
     npm run build
 
 WORKDIR my-app

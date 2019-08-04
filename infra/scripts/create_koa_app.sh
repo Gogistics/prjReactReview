@@ -3,8 +3,7 @@
 # Program:
 #   Spin up the fan systems
 # Date:
-#   7/13/2019
-# Note: Install Bash 4+ to create associate arrary
+#   08/02/2019
 
 set -e
 

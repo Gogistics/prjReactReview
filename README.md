@@ -1,5 +1,16 @@
-# React App
+# React Preview
 
+## React App
+How to spin up a topology with databases, the backend app (built by Koa), and the React app.
+```
+# stay in the project root dir and run the command below
+$ ./infra/scripts/spin_up_topology.sh
+
+# run eslint and react test
+$ ./infra/scripts/preflight_check.sh
+```
+
+How to start a React application?
 1. Create React App
 2. Understand app folder structure
 After creation, your project should look like this:
@@ -59,10 +70,12 @@ Data structures implemented into Redis have a few special properties:
 
 ---
 
-Google Cloud Platforms
+## Google Cloud Platforms
 https://cloud.google.com/nodejs/
 
-App Engine Standard
+#### App Engine-
+
+* App Engine Standard
 
 Pros
 
@@ -78,7 +91,8 @@ Cons
 Generally more constrained than other environments Instances are smaller. Although this is good for rapid autoscaling, many apps can benefit from larger instances, such as GCE instance sizes up to 96 cores.
 Networking is not integrated with GCE
 Cannot put App Engine behind a Google Cloud Load Balancer. Limited to supported runtimes: Python 2.7, Java 7 and 8, Go 1.6-1.9, and PHP 5.5. In Java, there is some support for Servlets but not the full J2EE standard.
-App Engine Flex
+
+#### App Engine Flex
 
 Pros
 
@@ -90,7 +104,8 @@ Cons
 
 Network integration is not perfect - no integration with internal load balancers or Shared Virtual Private Clouds
 Access to managed Memcache not generally available
-Google Kubernetes Engine
+
+#### Google Kubernetes Engine
 
 Pros
 
@@ -107,7 +122,8 @@ Some time to ramp up on Kubernetes concepts, such as pods, deployments, services
 Need to expose some public IPs unless using Private Clusters, now in beta, eliminate that need but you still need to provide access to locations where kubectl commands will be run from.
 Monitoring integration not perfect
 While L3 internal load balancing is supported natively on Kubernetes Engine, L7 internal load balancing is do-it-yourself, possibly leveraging Envoy
-Compute Engine
+
+#### Compute Engine
 
 Pros
 
@@ -123,12 +139,11 @@ Autoscaling is based on GCE instances, which can be slower than App Engine
 Tendency is to install software on snowflake GCE instances, which can be some effort to maintain
 
 
-
 App engine (similar to AWS ELB)
 https://cloud.google.com/nodejs/getting-started/hello-world
 Kube engine
 https://cloud.google.com/nodejs/docs/tutorials/bookshelf-on-kubernetes-engine
-Cloud function
+Cloud function (similar to AWS lambda)
 https://cloud.google.com/functions/docs/quickstart
 Compute engine
 https://cloud.google.com/nodejs/docs/tutorials/bookshelf-on-compute-engine

@@ -1,7 +1,50 @@
 ## React Operations:
 ```
-# start the app in dev mode
+# start the app in dev mode (for development locally)
 $ npm start
+
+# lintinga React app; in this tutorial, eslint and eslint-plugin-react are installed for linting
+# add lint to package.json 
+...
+  "scripts": {
+    ...
+    "lint": "eslint src/**/*.js"
+  },
+...
+
+# add .eslint to the project root dir
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "globals": {
+    "fetch": true
+  },
+  "rules": {
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-curly-spacing": [ 2, "never" ],
+    "react/jsx-tag-spacing": [ 2, {
+      "beforeClosing": "never",
+      "beforeSelfClosing": "always",
+      "closingSlash": "never",
+      "afterOpening": "never"
+    }],
+    "react/jsx-max-props-per-line": [2, {
+      "maximum": 2,
+      "when": "always"
+    }],
+    "react/jsx-closing-bracket-location": [2, "tag-aligned"],
+    "template-curly-spacing": [ 2, "always" ],
+    "space-before-blocks": [ 2, "always" ],
+    "object-curly-spacing": [ 2, "always" ],
+    "array-bracket-spacing": [ 2, "always" ],
+    "computed-property-spacing": [ 2, "always" ]
+  }
+}
+
+$ npm run lint
 
 # test runner in the interactive watch mode (could be integrated into CI/CD)
 # Note: 
@@ -66,3 +109,21 @@ class HelloWorld extends React.Component {
   </Container>
 </Router>
 ```
+
+## Lifecycycle
+In applications with many components, it's very important to free up resources taken by the components when they are destroyed.
+
+constructor() {
+  // init
+}
+
+componentDidMount() {
+  // start doing something when components are ready
+}
+
+componentWillUnmount() {
+  // start cleaning up before component gets destroyed
+}
+
+## State management
+React stores data locally at this.state and this.props; both objects may be updated asynchronously because React may batch multiple setState() calls into single update for performance.

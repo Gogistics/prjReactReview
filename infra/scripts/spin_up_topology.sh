@@ -4,8 +4,7 @@
 # Program:
 #   Spin up the fan systems
 # Date:
-#   7/13/2019
-# Note: Install Bash 4+ to create associate arrary
+#   08/02/2019
 
 set -e
 
@@ -32,10 +31,11 @@ if [[ -f $config_networks &&
     -f $spin_up_dbs &&
     -f $spin_up_koa &&
     -f $spin_up_app ]]; then
-./infra/scripts/config_networks.sh &&
-./infra/scripts/spin_up_dbs.sh &&
-./infra/scripts/spin_up_koa.sh  &&
-./infra/scripts/spin_up_app.sh
+
+    ./infra/scripts/config_networks.sh &&
+    ./infra/scripts/spin_up_dbs.sh &&
+    ./infra/scripts/spin_up_koa.sh  &&
+    ./infra/scripts/spin_up_app.sh
 else
     echo "Some files are missing"
     exit 1

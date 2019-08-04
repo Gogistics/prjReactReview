@@ -10,7 +10,6 @@ class Button extends Component {
 
     // handle click events
     handleClick() {
-        const self = this;
         fetch('http://localhost/apis')
             .then(res => res.json())
             .then((result) => {

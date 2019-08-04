@@ -23,20 +23,40 @@ function Home() {
 // About
 class Table extends React.Component {
    constructor(props) {
-      super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      this.state = { //state is by default an object
-         students: [
-            { id: 1, name: 'Alan', age: 21, email: 'alan@email.com' },
-            { id: 2, name: 'Allen', age: 19, email: 'allen@email.com' },
-            { id: 3, name: 'Cindy', age: 16, email: 'cindy@email.com' },
-            { id: 4, name: 'Judy', age: 25, email: 'judy@email.com' }
-         ]
-      }
+      super(props)
+      this.state = {
+         students: []
+      };
    }
+
+  componentDidMount() {
+    // get data from backend
+    fetch('http://localhost/apis/tbl_data')
+      .then(res => res.json())
+      .then((result) => {
+        console.log(result);
+        let students = result.data.map((student, index) => {
+          const { id, name, age, email } = student
+          return (
+            <tr key={id}>
+               <td>{id}</td>
+               <td>{name}</td>
+               <td>{age}</td>
+               <td>{email}</td>
+            </tr>
+          )
+        })
+
+        // this.setState({students: students});
+        this.setState((state, props) => ({
+          students: students
+        }));
+      });
+  }
 
    renderTableData() {
       return this.state.students.map((student, index) => {
-         const { id, name, age, email } = student //destructuring
+         const { id, name, age, email } = student
          return (
             <tr key={id}>
                <td>{id}</td>
@@ -48,12 +68,12 @@ class Table extends React.Component {
       })
    }
 
-   render() { //Whenever our class runs, render method will be called automatically, it may have already defined in the constructor behind the scene.
+   render() {
       return (
          <div>
             <table id='students'>
                <tbody>
-                  {this.renderTableData()}
+                  {this.state.students}
                </tbody>
             </table>
          </div>
@@ -73,28 +93,46 @@ function About() {
 class LoginForm extends React.Component {
 
  constructor(props){
-   super(props);
-   this.state = { username: '' };
+    super(props);
+
+    // set init state
+    this.state = {
+      username: '',
+      initial: '',
+      isValidInput: ''
+    };
  }
 
   updateText = debounce(function (val) {
     if (val.length < 1) {
-      this.setState({ username: '', initial: '', isValidInput: '' });
+      this.setState((state, props) => ({
+        username: '',
+        initial: '',
+        isValidInput: ''
+      }));
       return;
     }
+
+    // check if name is valid
     const pattern = /^[0-9a-zA-Z\s]+$/;
     const isValidInput = val.match(pattern) ? 'Valid' : 'Invalid';
+
+    // get initials
     let initials = val.match(/\b\w/g) || [];
     initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
 
-    this.setState({ username: val, initial: initials, isValidInput: isValidInput });
-    console.log('value: ', val);
+    this.setState((state, props) => ({
+      username: val,
+      initial: initials,
+      isValidInput: isValidInput
+    }));
   }, 600);
 
   handleChange = (evt) => {
     this.updateText(evt.target.value);
   };
 
+  // render view
   render() {
     return (
       <React.Fragment>
@@ -160,9 +198,9 @@ function Topic({ match }) {
 }
 
 export {
-    Home,
-    About,
-    LoginForm,
-    Topics,
-    Topic
+  Home,
+  About,
+  LoginForm,
+  Topics,
+  Topic
 }

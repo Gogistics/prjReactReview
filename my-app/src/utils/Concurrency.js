@@ -7,7 +7,7 @@ function promisify(f, manyArgs = false) {
           return reject(err);
         } else {
           // resolve with all callback results if manyArgs is specified
-          resolve(manyArgs ? results : results[0]);
+          resolve(manyArgs ? results : results[ 0 ]);
         }
       }
 
@@ -17,7 +17,7 @@ function promisify(f, manyArgs = false) {
       f.apply(this, args);
     });
   };
-};
+}
 
 export {
   promisify

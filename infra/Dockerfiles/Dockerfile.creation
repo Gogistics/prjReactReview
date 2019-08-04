@@ -1,4 +1,6 @@
 # build environment
 FROM node:8.16.0-alpine
-RUN npm i -g create-react-app
+RUN npm i -g create-react-app \
+        eslint \
+        eslint-plugin-react
 WORKDIR my-react
