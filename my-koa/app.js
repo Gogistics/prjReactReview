@@ -27,7 +27,7 @@ redis.get("foo", function(err, result) {
 const session = require('koa-generic-session');
 const redisStore = require('koa-redis');
 
-// sse
+// sse (WIP)
 const sse = require('koa-sse-stream');
 
 router
@@ -37,6 +37,19 @@ router
   })
   .get('/apis/:query', (ctx, next) => {
     console.log(ctx.params);
+
+    const log = {};
+    if (ctx.header) { log['header'] = ctx.header; }
+    if (ctx.href) { log['href'] = ctx.href; }
+    app.logs.insert(log, {w: 1}, (err, records) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log('Added records: ', records);
+      }
+    });
+
+    // respond to clients
     const resp = {status: 1, msg: 'resp from koa', query: ctx.params.query};
     if (ctx.params.query == 'tbl_data') {
       resp['data'] = [
