@@ -2,11 +2,11 @@ NodeJS Review
 
 1. What is Node
 
-2. Event-driven
+2. Event-driven => it's a programming mechanism to build a application based on and respond to the events.
 
-3. Even-loop
+3. Event-loop => it's a mechanism to handle async/sync callbacks/actions.
 
-4. REPL (Read-Eval-Print-Loop)
+4. REPL (Read-Eval-Print-Loop) => it's a virtual environment for developers to run/test JS code
 
 5. module.exports => a module encapsulates the related code into a single unit of code; simply speaking, it's like a wrapper of holding bunch of functions
 
